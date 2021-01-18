@@ -1,0 +1,19 @@
+[package]
+name = "rshim"
+version = "0.1.0"
+authors = ["anonymous <anonymous@example.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+
+[profile.release]
+opt-level = "z"
+panic = "abort"
+[dependencies]
+fs-err = "2.5.0"
+unicode-bom = "1"
+
+[dependencies.winapi]
+version = "0.3"
+features = ["wincon","consoleapi","minwindef"]
