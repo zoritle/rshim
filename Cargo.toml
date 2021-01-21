@@ -16,4 +16,16 @@ unicode-bom = "1"
 
 [dependencies.winapi]
 version = "0.3"
-features = ["wincon","consoleapi","minwindef"]
+features = [
+    "wincon",
+    "consoleapi",
+    "minwindef",
+    "shellapi",
+    "winuser",
+    "synchapi",
+    "combaseapi",
+    "winbase",
+    "processthreadsapi",
+    "objbase",
+    "impl-default"
+]
