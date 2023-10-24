@@ -63,26 +63,16 @@ fn parse_shim_file(shim_path: &Path) -> Result<HashMap<String, String>, Error> {
         .lines()
         .filter(|l| !l.trim().is_empty())
     {
-        let mut components = line.split("=");
-        let key = match components.next() {
-            Some(k) => k.trim(),
-            None => {
-                return Err(Error::new(
-                    ErrorKind::InvalidData,
-                    format!("invalid line in shim file: {}", line),
-                ));
-            }
-        };
-        let value = match components.next() {
-            Some(v) => v.trim(),
-            None => {
-                return Err(Error::new(
-                    ErrorKind::InvalidData,
-                    format!("invalid line in shim file: {}", line),
-                ));
-            }
-        };
-        kvs.insert(key.to_string(), value.to_string());
+        if let Some((key, value)) = line.split_once("=") {
+            let key = key.trim();
+            let value = value.trim();
+            kvs.insert(key.to_string(), value.to_string());
+        } else {
+            return Err(Error::new(
+                ErrorKind::InvalidData,
+                format!("invalid line in shim file: {}", line),
+            ));
+        }
     }
 
     Ok(kvs)
